@@ -9,3 +9,7 @@ Basic React food ordering system
 - Install dependencies `npm i`
 - Run the app `npm run start`
 - Access the app from `http://localhost:3000`
+
+# Other branches
+
+- Checkout the backend integration on branch with-backend

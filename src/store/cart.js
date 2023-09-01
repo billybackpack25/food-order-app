@@ -1,10 +1,11 @@
 import { createContext, useContext, useReducer } from 'react';
-import { ADD, REMOVE } from './cartActions';
+import { ADD, CHECKOUT, REMOVE } from './cartActions';
 import { produce } from 'immer';
 
 export const initialCartState = {
   items: [],
   totalAmount: 0,
+  complete: '',
 };
 
 const cartReducer = produce((draft, action) => {
@@ -32,6 +33,10 @@ const cartReducer = produce((draft, action) => {
       }
       break;
     }
+    case CHECKOUT: {
+      draft.complete = action.id;
+      break;
+    }
     default:
       break;
   }
@@ -41,6 +46,7 @@ export const CartContext = createContext({
   ...initialCartState,
   addItem: (item) => {},
   removeItem: (id) => {},
+  checkoutItems: (id) => null,
 });
 
 export const CartProvider = ({ children }) => {
@@ -50,11 +56,13 @@ export const CartProvider = ({ children }) => {
 
   const removeItemFromCartHandler = (id) => dispatch({ type: REMOVE, id });
 
+  const checkoutHandler = (id) => dispatch({ type: CHECKOUT, id });
+
   const cartContextValue = {
-    items: cartState.items,
-    totalAmount: cartState.totalAmount,
+    ...cartState,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
+    checkoutItems: checkoutHandler,
   };
 
   return (

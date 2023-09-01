@@ -8,8 +8,11 @@ const Backdrop = ({ onClick }) => (
   <div className={styles.backdrop} onClick={onClick}></div>
 );
 
-const ModalOverlay = ({ children }) => (
+const ModalOverlay = ({ children, onClose }) => (
   <div className={styles.modal}>
+    <header>
+      <button onClick={onClose}>x</button>
+    </header>
     <div className={styles.content}>{children}</div>
   </div>
 );
@@ -19,7 +22,12 @@ const Modal = ({ children, onClose, isOpen }) => {
     return (
       <>
         {createPortal(<Backdrop onClick={onClose} />, document.body)}
-        {createPortal(<ModalOverlay>{children}</ModalOverlay>, document.body)}
+        {createPortal(
+          <ModalOverlay onClose={onClose}>
+            {React.cloneElement(children, { onClose })}
+          </ModalOverlay>,
+          document.body
+        )}
       </>
     );
   return <></>;

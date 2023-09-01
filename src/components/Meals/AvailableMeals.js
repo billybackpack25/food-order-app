@@ -1,48 +1,33 @@
 import styles from './AvailableMeals.module.css';
 import Card from '../UI/Card/Card';
 import MealItem from './MealItem/MealItem';
+import { useState } from 'react';
+import useMeals from '../../hooks/useMeals';
 
 const AvailableMeals = () => {
-  const mealsList = Data().map((meal) => {
+  const [meals, setMeals] = useState([]);
+
+  const { error, isLoading } = useMeals({
+    setMeals,
+    retrieveOnLoad: true,
+  });
+
+  let content = <p>No available meals</p>;
+
+  if (isLoading) content = <p>Loading...</p>;
+  if (error) content = <p>Something has gone wrong</p>;
+
+  const mealsList = meals?.map((meal) => {
     return <MealItem key={meal.id} {...meal} />;
   });
 
+  if (!!mealsList?.length) content = mealsList;
+
   return (
     <section className={styles.meals}>
-      <Card>
-        <ul>{mealsList}</ul>
-      </Card>
+      <Card>{content}</Card>
     </section>
   );
 };
-
-function Data() {
-  return [
-    {
-      id: 'm1',
-      name: 'Sushi',
-      description: 'Finest fish and veggies',
-      price: 22.99,
-    },
-    {
-      id: 'm2',
-      name: 'Schnitzel',
-      description: 'A german specialty!',
-      price: 16.5,
-    },
-    {
-      id: 'm3',
-      name: 'Barbecue Burger',
-      description: 'American, raw, meaty',
-      price: 12.99,
-    },
-    {
-      id: 'm4',
-      name: 'Green Bowl',
-      description: 'Healthy...and green...',
-      price: 18.99,
-    },
-  ];
-}
 
 export default AvailableMeals;

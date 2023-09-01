@@ -21,6 +21,22 @@
   animation: slide-down 300ms ease-out forwards;
 }
 
+.modal > header {
+  position: absolute;
+  right: 1rem;
+}
+
+.modal > header > button {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.modal > header > button:hover {
+  color: #8a2b06;
+}
+
 @media (min-width: 768px) {
   .modal {
     width: 40rem;

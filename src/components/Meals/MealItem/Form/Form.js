@@ -20,7 +20,7 @@ const Form = ({ id, onAddToCart }) => {
       setIsValid(false);
       return;
     }
-    console.log('amount', +enteredAmount);
+
     onAddToCart(+enteredAmount);
   };
 

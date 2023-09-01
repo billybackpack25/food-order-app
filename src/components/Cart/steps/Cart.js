@@ -1,12 +1,10 @@
+import { useCartContext } from '../../../store/cart';
+import { toCurrency } from '../../../utils/formatters';
+import styles from '../Cart.module.css';
+import CartItem from '../CartItem/CartItem';
 import PropTypes from 'prop-types';
 
-import { useCartContext } from '../../store/cart';
-import { toCurrency } from '../../utils/formatters';
-import Modal from '../UI/Modal/Modal';
-import styles from './Cart.module.css';
-import CartItem from './CartItem/CartItem';
-
-const Cart = ({ isOpen, onClose }) => {
+const Cart = ({ onClose, nextStep }) => {
   const { items, totalAmount, addItem, removeItem } = useCartContext();
   const hasItems = items.length > 0;
 
@@ -27,7 +25,7 @@ const Cart = ({ isOpen, onClose }) => {
   );
 
   return (
-    <Modal onClose={onClose} isOpen={isOpen}>
+    <>
       {cartItems}
       <div className={styles.total}>
         <span>Total Amount</span>
@@ -37,14 +35,18 @@ const Cart = ({ isOpen, onClose }) => {
         <button className={styles['button--alt']} onClick={onClose}>
           Close
         </button>
-        {hasItems && <button className={styles.button}>Order</button>}
+        {hasItems && (
+          <button className={styles.button} onClick={nextStep}>
+            Order
+          </button>
+        )}
       </div>
-    </Modal>
+    </>
   );
 };
 
 Cart.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
+  nextStep: PropTypes.func,
   onClose: PropTypes.func,
 };
 

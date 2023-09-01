@@ -44,3 +44,39 @@
   background-color: #8a2b06;
   color: white;
 }
+
+.form .groupInput + .groupInput {
+  padding-top: 1rem;
+}
+
+.form label {
+display: flex;
+padding-bottom: 1rem;
+}
+
+.form input {
+  display: flex;
+  /* margin-block: 1rem; */
+}
+
+.form fieldset {
+  /* padding: 1rem; */
+  margin-block: 1rem;
+  width: fit-content;
+  border: none;
+  padding-left: 0;
+}
+
+.form input[aria-invalid="true"] {
+  border: 1px solid red;
+}
+
+.form .error {
+  color: red;
+  font-size: 0.7rem;
+  display: block;
+}
+
+.form .error:first-letter {
+  text-transform: capitalize;
+}

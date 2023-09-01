@@ -13,3 +13,4 @@ Basic React food ordering system
 # Other branches
 
 - Checkout the backend integration on branch with-backend
+  - feature: Modal stepper hook, context, redux, useHttp hook, useCheckout hook
